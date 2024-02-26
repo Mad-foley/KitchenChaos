@@ -38,5 +38,8 @@ public class Player : MonoBehaviour
         //update player position
         //multiply time so that it doesn't move every update but to time
         transform.position += moveDir * moveSpeed * Time.deltaTime;
+        float rotateSpeed = 10f;
+        //rotates player to direction smoothly
+        transform.forward = Vector3.Slerp(transform.forward, moveDir, Time.deltaTime * rotateSpeed);
     }
 }
