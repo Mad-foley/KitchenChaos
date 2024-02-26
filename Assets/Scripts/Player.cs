@@ -6,6 +6,8 @@ public class Player : MonoBehaviour
 {
     //attribute allows us to view in unity editor, private alone doesn't let us
     [SerializeField] private float moveSpeed = 7f;
+    private bool isWalking;
+
 
     private void Update()
     {
@@ -38,8 +40,17 @@ public class Player : MonoBehaviour
         //update player position
         //multiply time so that it doesn't move every update but to time
         transform.position += moveDir * moveSpeed * Time.deltaTime;
+
+        //check if moving for aniamtion
+        isWalking = moveDir != Vector3.zero;
+
         float rotateSpeed = 10f;
         //rotates player to direction smoothly
         transform.forward = Vector3.Slerp(transform.forward, moveDir, Time.deltaTime * rotateSpeed);
+        Debug.Log(isWalking);
+    }
+
+    public bool IsWalking() {
+        return isWalking;
     }
 }
