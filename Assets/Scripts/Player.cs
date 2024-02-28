@@ -29,9 +29,33 @@ public class Player : MonoBehaviour
         bool canMove = !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerRadius, moveDir, moveDistance);
         //update player position
         //multiply time so that it doesn't move every update but to time
-        if (canMove) {
+        if(!canMove)
+        {
+            //attempt only x movement
+            Vector3 moveDirX = new Vector3(moveDir.x, 0, 0).normalized;
+            canMove = !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerRadius, moveDirX, moveDistance);
+            if (canMove)
+            {
+                //move on x axis
+                moveDir = moveDirX;
+            }
+            else
+            {
+                //cannot move on x, attempt z movement
+                Vector3 moveDirZ = new Vector3(0, 0, moveDir.z).normalized;
+                canMove = !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerRadius, moveDirZ, moveDistance);
+
+                if (canMove)
+                {
+                    moveDir = moveDirZ;
+                }
+            }
+        }
+        if (canMove)
+        {
             transform.position += moveDir * moveDistance;
         }
+
 
         //check if moving for aniamtion
         isWalking = moveDir != Vector3.zero;
