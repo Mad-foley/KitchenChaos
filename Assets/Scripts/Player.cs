@@ -9,11 +9,48 @@ public class Player : MonoBehaviour
     //attribute allows us to view in unity editor, private alone doesn't let us
     [SerializeField] private float moveSpeed = 7f;
     [SerializeField] private GameInput gameInput;
+    [SerializeField] private LayerMask countersLayerMask;
 
 
     private bool isWalking;
+    private Vector3 lastInteractDir;
 
     private void Update()
+    {
+        HandleMovement();
+        HandleInteractions();
+    }
+
+    public bool IsWalking()
+    {
+        return isWalking;
+    }
+
+    private void HandleInteractions() {
+        Vector2 inputVector = gameInput.GetMovementVectorNormalized();
+
+        //convert to 3D vector best way to write code
+        //watch necassary inputs and then convert if needed
+        Vector3 moveDir = new Vector3(inputVector.x, 0f, inputVector.y);
+
+        float interactDistance = 2f;
+        if (moveDir != Vector3.zero) {
+            lastInteractDir = moveDir;
+        }
+
+        if (Physics.Raycast(transform.position, lastInteractDir, out RaycastHit raycastHit, interactDistance, countersLayerMask))
+        {
+            //try get is a better practice
+            if (raycastHit.transform.TryGetComponent(out ClearCounter clearCounter))
+            {
+                //Has ClearCounter
+                clearCounter.Interact();
+            }
+
+        }
+    }
+
+    private void HandleMovement()
     {
         Vector2 inputVector = gameInput.GetMovementVectorNormalized();
 
@@ -29,7 +66,7 @@ public class Player : MonoBehaviour
         bool canMove = !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerRadius, moveDir, moveDistance);
         //update player position
         //multiply time so that it doesn't move every update but to time
-        if(!canMove)
+        if (!canMove)
         {
             //attempt only x movement
             Vector3 moveDirX = new Vector3(moveDir.x, 0, 0).normalized;
@@ -63,11 +100,7 @@ public class Player : MonoBehaviour
         float rotateSpeed = 10f;
         //rotates player to direction smoothly
         transform.forward = Vector3.Slerp(transform.forward, moveDir, Time.deltaTime * rotateSpeed);
-        Debug.Log(isWalking);
-    }
+        
 
-    public bool IsWalking()
-    {
-        return isWalking;
     }
 }
