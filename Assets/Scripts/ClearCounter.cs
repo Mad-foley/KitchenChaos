@@ -5,13 +5,15 @@ using UnityEngine;
 public class ClearCounter : MonoBehaviour
 {
     //can use Transform or GameObject in this scenerio
-    [SerializeField] private Transform tomatoPrefab;
+    [SerializeField] private KitchenObjectSO kitchenObjectSO;
     [SerializeField] private Transform counterTopPoint;
     // Start is called before the first frame update
     public void Interact()
     {
         Debug.Log("lol");
-        Transform tomatoTransform = Instantiate(tomatoPrefab, counterTopPoint);
-        tomatoTransform.localPosition = Vector3.zero;
+        Transform kitchenObjectTransform = Instantiate(kitchenObjectSO.prefab, counterTopPoint);
+        kitchenObjectTransform.localPosition = Vector3.zero;
+
+        Debug.Log(kitchenObjectTransform.GetComponent<KitchenObject>().GetKitchenObjectSO().objectName);
     }
 }
