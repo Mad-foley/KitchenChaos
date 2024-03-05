@@ -2,26 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//extend with interface 
-public class ClearCounter : BaseCounter, IKitchenObjectParent
+public class ContainerCounter : BaseCounter, IKitchenObjectParent
 {
 
-
-    //can use Transform or GameObject in this scenerio
     [SerializeField] private KitchenObjectSO kitchenObjectSO;
     [SerializeField] private Transform counterTopPoint;
     // Start is called before the first frame update
 
     private KitchenObject kitchenObject;
 
-
     public override void Interact(Player player)
     {
-        if(kitchenObject == null)
+        if (kitchenObject == null)
         {
             Transform kitchenObjectTransform = Instantiate(kitchenObjectSO.prefab, counterTopPoint);
             kitchenObjectTransform.GetComponent<KitchenObject>().SetKitchenObjectParent(this);
-        } else
+        }
+        else
         {
             //give object to player
             kitchenObject.SetKitchenObjectParent(player);
