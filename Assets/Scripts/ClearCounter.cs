@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//extend with interface 
+//extend with interface
 public class ClearCounter : BaseCounter
 {
 
@@ -13,7 +13,13 @@ public class ClearCounter : BaseCounter
 
     public override void Interact(Player player)
     {
+        if (!HasKitchenObject()){
+            if(player.HasKitchenObject()){
+                player.GetKitchenObject().SetKitchenObjectParent(this);
+            }
+        } else {
 
+        }
     }
 
 }
