@@ -31,8 +31,7 @@ public class CuttingCounter : BaseCounter
          if (HasKitchenObject()){
             //destroy object and spawn sliced object
             GetKitchenObject().DestroySelf();
-            Transform cutKitchenObjectTransform = Instantiate(cutKitchenObjectSO.prefab);
-            cutKitchenObjectTransform.GetComponent<KitchenObject>().SetKitchenObjectParent(this);
+            KitchenObject.SpawnKitchenObject(cutKitchenObjectSO, this);
         } else {
 
         }
