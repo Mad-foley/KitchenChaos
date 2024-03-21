@@ -11,9 +11,8 @@ public class ContainerCounter : BaseCounter
 
     public override void Interact(Player player)
     {
-        //spawn object and give it to player
-        if (!HasKitchenObject())
-        {
+        // give object to player if they dont have an object
+        if(!player.HasKitchenObject()){
             Transform kitchenObjectTransform = Instantiate(kitchenObjectSO.prefab);
             kitchenObjectTransform.GetComponent<KitchenObject>().SetKitchenObjectParent(player);
             OnPlayerGrabbedObject?.Invoke(this, EventArgs.Empty);
