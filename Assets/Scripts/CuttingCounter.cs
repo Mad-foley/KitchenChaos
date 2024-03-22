@@ -7,7 +7,7 @@ using UnityEngine;
 public class CuttingCounter : BaseCounter
 {
 
-    [SerializeField] private CuttingRecipeSO[] cutKitchenObjectSOArray;
+    [SerializeField] private CuttingRecipeSO[] cuttingReceipeSOArray;
 
     private int cuttingProgress;
     public override void Interact(Player player)
@@ -48,20 +48,26 @@ public class CuttingCounter : BaseCounter
     }
 
     private bool HasRecipeWithInput(KitchenObjectSO inputKitchenObjectSO) {
-        foreach(CuttingRecipeSO cuttingRecipeSO in cutKitchenObjectSOArray) {
-            if(cuttingRecipeSO.input == inputKitchenObjectSO){
-                return true;
-            }
-        }
-        return false;
+        CuttingRecipeSO cuttingRecipeSO = GetCuttingRecipeSOWithInput(inputKitchenObjectSO);
+        return cuttingRecipeSO != null;
     }
 
     private KitchenObjectSO GetOutputFotInput(KitchenObjectSO inputKitchenObjectSO){
-        foreach (CuttingRecipeSO cuttingRecipeSO in cutKitchenObjectSOArray){
+        CuttingRecipeSO cuttingRecipeSO = GetCuttingRecipeSOWithInput(inputKitchenObjectSO);
+        if (cuttingRecipeSO != null) {
+            return cuttingRecipeSO.output;
+        } else {
+            return null;
+        }
+    }
+
+    private CuttingRecipeSO GetCuttingRecipeSOWithInput(KitchenObjectSO inputKitchenObjectSO){
+        foreach(CuttingRecipeSO cuttingRecipeSO in cuttingReceipeSOArray){
             if(cuttingRecipeSO.input == inputKitchenObjectSO){
-                return cuttingRecipeSO.output;
+                return cuttingRecipeSO;
             }
         }
         return null;
     }
+
 }
