@@ -820,6 +820,11 @@ PrefabInstance:
       propertyPath: m_Type
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 6213288716894593943, guid: a5e9b222261324c7c9f2cbd7ecacb7ae,
+        type: 3}
+      propertyPath: m_FillAmount
+      value: 0.469
+      objectReference: {fileID: 0}
     - target: {fileID: 6306752959091516221, guid: a5e9b222261324c7c9f2cbd7ecacb7ae,
         type: 3}
       propertyPath: cuttingReceipeSOArray.Array.size
