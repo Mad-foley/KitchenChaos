@@ -38,10 +38,14 @@ public class CuttingCounter : BaseCounter
          if (HasKitchenObject() && HasRecipeWithInput(GetKitchenObject().GetKitchenObjectSO())){
             cuttingProgress++;
 
-            KitchenObjectSO outputKitchenObjectSO = GetOutputFotInput(GetKitchenObject().GetKitchenObjectSO());
-            //destroy object and spawn sliced object
-            GetKitchenObject().DestroySelf();
-            KitchenObject.SpawnKitchenObject(outputKitchenObjectSO, this);
+            CuttingRecipeSO cuttingRecipeSO = GetCuttingRecipeSOWithInput(GetKitchenObject().GetKitchenObjectSO());
+
+            if(cuttingProgress >= cuttingRecipeSO.cuttingProgressMax){
+                KitchenObjectSO outputKitchenObjectSO = GetOutputFotInput(GetKitchenObject().GetKitchenObjectSO());
+                //destroy object and spawn sliced object
+                GetKitchenObject().DestroySelf();
+                KitchenObject.SpawnKitchenObject(outputKitchenObjectSO, this);
+            }
         } else {
 
         }
