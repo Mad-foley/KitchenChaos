@@ -1,5 +1,5 @@
 # KitchenChaos
-Learning how to create an interactive video games utilizing Unity, and C#
+Learning how to create an interactive video game utilizing Unity, and C#
 
 
 ><b>Following Code Monkey's complete tutorial:</b>
